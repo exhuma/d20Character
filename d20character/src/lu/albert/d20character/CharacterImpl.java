@@ -1,5 +1,6 @@
 package lu.albert.d20character;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lu.albert.d20character.api.Character;
@@ -93,12 +94,45 @@ public class CharacterImpl implements Character {
 	private List<String> languages;
 
 	private int spellSave;
-	private int arcaneSpellFailure;
 	private String conditionalArcaneSpellFailure;
 
 	private List<SpellLevel> spellLevels;
 
 	private List<Spell> spells;
+
+	private static List<Integer[]> LOADS = new ArrayList<Integer[]>();
+
+	static {
+		LOADS.add(new Integer[] { 0, 3, 4, 6, 7, 10 });
+		LOADS.add(new Integer[] { 0, 6, 7, 13, 14, 20 });
+		LOADS.add(new Integer[] { 0, 10, 11, 20, 21, 30 });
+		LOADS.add(new Integer[] { 0, 13, 14, 26, 27, 40 });
+		LOADS.add(new Integer[] { 0, 16, 17, 33, 34, 50 });
+		LOADS.add(new Integer[] { 0, 20, 21, 40, 41, 60 });
+		LOADS.add(new Integer[] { 0, 23, 24, 46, 47, 70 });
+		LOADS.add(new Integer[] { 0, 26, 27, 53, 54, 80 });
+		LOADS.add(new Integer[] { 0, 30, 31, 60, 61, 90 });
+		LOADS.add(new Integer[] { 0, 33, 34, 66, 67, 100 });
+		LOADS.add(new Integer[] { 0, 38, 39, 76, 77, 115 });
+		LOADS.add(new Integer[] { 0, 43, 44, 86, 87, 130 });
+		LOADS.add(new Integer[] { 0, 50, 51, 100, 101, 150 });
+		LOADS.add(new Integer[] { 0, 58, 59, 116, 117, 175 });
+		LOADS.add(new Integer[] { 0, 66, 67, 133, 134, 200 });
+		LOADS.add(new Integer[] { 0, 76, 77, 153, 154, 230 });
+		LOADS.add(new Integer[] { 0, 86, 87, 173, 174, 260 });
+		LOADS.add(new Integer[] { 0, 100, 101, 200, 201, 300 });
+		LOADS.add(new Integer[] { 0, 116, 117, 233, 234, 350 });
+		LOADS.add(new Integer[] { 0, 133, 134, 266, 267, 400 });
+		LOADS.add(new Integer[] { 0, 153, 154, 306, 307, 460 });
+		LOADS.add(new Integer[] { 0, 173, 174, 346, 347, 520 });
+		LOADS.add(new Integer[] { 0, 200, 201, 400, 401, 600 });
+		LOADS.add(new Integer[] { 0, 233, 234, 466, 467, 700 });
+		LOADS.add(new Integer[] { 0, 266, 267, 533, 534, 800 });
+		LOADS.add(new Integer[] { 0, 306, 307, 613, 614, 920 });
+		LOADS.add(new Integer[] { 0, 346, 347, 693, 694, 1040 });
+		LOADS.add(new Integer[] { 0, 400, 401, 800, 801, 1200 });
+		LOADS.add(new Integer[] { 0, 466, 467, 933, 934, 1400 });
+	}
 
 	/**
 	 * Return a modifier for an integer value
@@ -108,14 +142,79 @@ public class CharacterImpl implements Character {
 	 * @return The modifier
 	 */
 	private int modifier(int value) {
-		return (int) Math.floor((value - 10) / 2);
+		return (int) Math.floor((value - 10) / 2f);
 	}
-	
+
 	/**
 	 * Default no-args constructor
 	 */
 	public CharacterImpl() {
 		this.size = Size.Medium;
+		this.classes = new ArrayList<String>();
+		this.weapons = new ArrayList<Weapon>();
+		this.armor = new ArrayList<ProtectiveItem>();
+
+		this.skills = new ArrayList<Skill>();
+		this.skills
+				.add(new SkillImpl("Appraise", Ability.Intelligence, true, 0));
+		this.skills.add(new SkillImpl("Balance", Ability.Dexterity, true, 1));
+		this.skills.add(new SkillImpl("Bluff", Ability.Charisma, true, 0));
+		this.skills.add(new SkillImpl("Climb", Ability.Strength, true, 1));
+		this.skills.add(new SkillImpl("Concentraion", Ability.Constitution,
+				true, 0));
+		this.skills.add(new SkillImpl("Craft ____", Ability.Intelligence, true,
+				0));
+		this.skills.add(new SkillImpl("Decipher Script", Ability.Intelligence,
+				false, 0));
+		this.skills.add(new SkillImpl("Diplomacy", Ability.Charisma, true, 0));
+		this.skills.add(new SkillImpl("Disable Device", Ability.Intelligence,
+				false, 0));
+		this.skills.add(new SkillImpl("Disguise", Ability.Charisma, true, 0));
+		this.skills.add(new SkillImpl("Escape artist", Ability.Dexterity, true,
+				1));
+		this.skills
+				.add(new SkillImpl("Forgery", Ability.Intelligence, true, 0));
+		this.skills.add(new SkillImpl("Gather information", Ability.Charisma,
+				true, 0));
+		this.skills.add(new SkillImpl("Handle animal", Ability.Charisma, false,
+				0));
+		this.skills.add(new SkillImpl("Heal", Ability.Wisdom, true, 0));
+		this.skills.add(new SkillImpl("Hide", Ability.Dexterity, true, 1));
+		this.skills.add(new SkillImpl("Intimidate", Ability.Charisma, true, 0));
+		this.skills.add(new SkillImpl("Jump", Ability.Strength, true, 1));
+		this.skills.add(new SkillImpl("Knowledge ____", Ability.Intelligence,
+				false, 0));
+		this.skills.add(new SkillImpl("Listen", Ability.Wisdom, true, 0));
+		this.skills.add(new SkillImpl("Move silently", Ability.Dexterity, true,
+				1));
+		this.skills
+				.add(new SkillImpl("Open lock", Ability.Dexterity, false, 0));
+		this.skills.add(new SkillImpl("Perform ____", Ability.Charisma, false,
+				0));
+		this.skills.add(new SkillImpl("Profession ___", Ability.Wisdom, false,
+				0));
+		this.skills.add(new SkillImpl("Ride", Ability.Dexterity, true, 0));
+		this.skills.add(new SkillImpl("Search", Ability.Intelligence, true, 0));
+		this.skills.add(new SkillImpl("Sense motive", Ability.Wisdom, true, 0));
+		this.skills.add(new SkillImpl("Sleight of hand", Ability.Dexterity,
+				false, 1));
+		this.skills.add(new SkillImpl("Spellcraft", Ability.Intelligence,
+				false, 0));
+		this.skills.add(new SkillImpl("Spot", Ability.Wisdom, true, 0));
+		this.skills.add(new SkillImpl("Survival", Ability.Wisdom, true, 0));
+		this.skills.add(new SkillImpl("Swim", Ability.Strength, true, 2));
+		this.skills.add(new SkillImpl("Tumble", Ability.Dexterity, false, 1));
+		this.skills.add(new SkillImpl("Use magic device", Ability.Charisma,
+				false, 0));
+		this.skills.add(new SkillImpl("Use rope", Ability.Dexterity, true, 0));
+
+		this.possessions = new ArrayList<Item>();
+		this.feats = new ArrayList<String>();
+		this.specialAbilitites = new ArrayList<String>();
+		this.languages = new ArrayList<String>();
+		this.spellLevels = new ArrayList<SpellLevel>();
+		this.spells = new ArrayList<Spell>();
+
 	}
 
 	@Override
@@ -260,12 +359,12 @@ public class CharacterImpl implements Character {
 
 	@Override
 	public int getStrength() {
-		return strength;
+		return getAbilityScore(Ability.Strength);
 	}
 
 	@Override
 	public void setStrength(int strength) {
-		this.strength = strength;
+		setAbilityScore(Ability.Strength, strength);
 	}
 
 	@Override
@@ -275,7 +374,7 @@ public class CharacterImpl implements Character {
 
 	@Override
 	public void setDexterity(int dexterity) {
-		this.dexterity = dexterity;
+		setAbilityScore(Ability.Dexterity, dexterity);
 	}
 
 	@Override
@@ -285,7 +384,7 @@ public class CharacterImpl implements Character {
 
 	@Override
 	public void setConstitution(int constitution) {
-		this.constitution = constitution;
+		setAbilityScore(Ability.Constitution, constitution);
 	}
 
 	@Override
@@ -295,7 +394,7 @@ public class CharacterImpl implements Character {
 
 	@Override
 	public void setIntelligence(int intelligence) {
-		this.intelligence = intelligence;
+		setAbilityScore(Ability.Intelligence, intelligence);
 	}
 
 	@Override
@@ -305,7 +404,7 @@ public class CharacterImpl implements Character {
 
 	@Override
 	public void setWisdom(int wisdom) {
-		this.wisdom = wisdom;
+		setAbilityScore(Ability.Wisdom, wisdom);
 	}
 
 	@Override
@@ -315,7 +414,7 @@ public class CharacterImpl implements Character {
 
 	@Override
 	public void setCharisma(int charisma) {
-		this.charisma = charisma;
+		setAbilityScore(Ability.Charisma, charisma);
 	}
 
 	@Override
@@ -760,12 +859,11 @@ public class CharacterImpl implements Character {
 
 	@Override
 	public int getArcaneSpellFailure() {
-		return arcaneSpellFailure;
-	}
-
-	@Override
-	public void setArcaneSpellFailure(int arcaneSpellFailure) {
-		this.arcaneSpellFailure = arcaneSpellFailure;
+		int output = 0;
+		for (ProtectiveItem armor : this.armor) {
+			output = Math.max(output, armor.getSpellFailure());
+		}
+		return output;
 	}
 
 	@Override
@@ -847,22 +945,72 @@ public class CharacterImpl implements Character {
 	}
 
 	@Override
-	public int getModifier(Ability ability) {
+	public int getAbilityScore(Ability ability) {
 		switch (ability) {
 		case Charisma:
-			return this.modifier(this.getCharisma());
+			return this.charisma;
 		case Constitution:
-			return this.modifier(this.getConstitution());
+			return this.constitution;
 		case Dexterity:
-			return this.modifier(this.getDexterity());
+			return this.dexterity;
 		case Intelligence:
-			return this.modifier(this.getIntelligence());
+			return this.intelligence;
 		case Strength:
-			return this.modifier(this.getStrength());
+			return this.strength;
 		case Wisdom:
-			return this.modifier(this.getWisdom());
+			return this.wisdom;
 		default:
-			throw new IllegalArgumentException("Invalid ability passed to the getModifier method!");
+			throw new IllegalArgumentException(
+					"Invalid ability passed to the getModifier method!");
+		}
+	}
+
+	@Override
+	public void setAbilityScore(Ability ability, int value) {
+		switch (ability) {
+		case Charisma:
+			this.charisma = value;
+			;
+			break;
+		case Constitution:
+			this.constitution = value;
+			break;
+		case Dexterity:
+			this.dexterity = value;
+			break;
+		case Intelligence:
+			this.intelligence = value;
+			break;
+		case Strength:
+			this.strength = value;
+			break;
+		case Wisdom:
+			this.wisdom = value;
+			break;
+		default:
+			throw new IllegalArgumentException(
+					"Invalid ability passed to the getModifier method!");
+		}
+	}
+
+	@Override
+	public int getAbilityModifier(Ability ability) {
+		switch (ability) {
+		case Charisma:
+			return this.modifier(this.charisma);
+		case Constitution:
+			return this.modifier(this.constitution);
+		case Dexterity:
+			return this.modifier(this.dexterity);
+		case Intelligence:
+			return this.modifier(this.intelligence);
+		case Strength:
+			return this.modifier(this.strength);
+		case Wisdom:
+			return this.modifier(this.wisdom);
+		default:
+			throw new IllegalArgumentException(
+					"Invalid ability passed to the getModifier method!");
 		}
 	}
 
@@ -875,7 +1023,7 @@ public class CharacterImpl implements Character {
 			totalAC += item.getArmorClassBonus();
 		}
 
-		totalAC += this.getModifier(Ability.Dexterity);
+		totalAC += this.getAbilityModifier(Ability.Dexterity);
 
 		totalAC += this.getNaturalArmor();
 
@@ -911,6 +1059,62 @@ public class CharacterImpl implements Character {
 			break;
 		}
 		return totalAC;
+	}
+
+	@Override
+	public int getSkillModifier(Skill skill) {
+		int modifier = this.getAbilityModifier(skill.getKeyAbility())
+				+ skill.getRanks() + skill.getMiscModifier();
+		
+		int maxDex = 999;
+		
+		// apply armor based penalties
+		for (ProtectiveItem armor : this.getArmor()) {
+			modifier += armor.getCheckPenalty() * skill.getPenaltyMultiplier();
+			maxDex = Math.min(maxDex, armor.getMaxDexterity());
+		}
+		
+		if (skill.getKeyAbility() == Ability.Dexterity && modifier > maxDex){
+			return maxDex;
+		}
+		
+		return modifier;
+	}
+
+	@Override
+	public List<Integer> getLoad(Load load) {
+		Integer[] loadInfo = LOADS.get(strength-1);
+		List<Integer> out = new ArrayList<Integer>();
+		switch(load){
+		case Light:
+			out.add(loadInfo[0]);
+			out.add(loadInfo[1]);
+			break;
+		case Medium:
+			out.add(loadInfo[2]);
+			out.add(loadInfo[3]);
+			break;
+		case Heavy:
+			out.add(loadInfo[4]);
+			out.add(loadInfo[5]);
+			break;
+		}
+		return out;
+	}
+
+	@Override
+	public int getTotalWeight() {
+		int total = 0;
+		for (ProtectiveItem armor : this.armor) {
+			total += armor.getWeight();
+		}
+		for (Item item : this.possessions) {
+			total += item.getWeight();
+		}
+		for (Weapon weapon : this.weapons) {
+			total += weapon.getWeight();
+		}
+		return total;
 	}
 
 }

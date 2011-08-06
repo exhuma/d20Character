@@ -10,6 +10,15 @@ public class SpellLevelImpl implements SpellLevel {
 	private int spellsPerDay;
 	private int bonusSpells;
 
+	public SpellLevelImpl(int level, int knownSpells, int difficultyClass,
+			int spellsPerDay, int bonusSpells) {
+		this.level = level;
+		this.knownSpells = knownSpells;
+		this.difficultyClass = difficultyClass;
+		this.spellsPerDay = spellsPerDay;
+		this.bonusSpells = bonusSpells;
+	}
+
 	@Override
 	public int getLevel() {
 		return level;

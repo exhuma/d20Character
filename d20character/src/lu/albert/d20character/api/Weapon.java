@@ -39,5 +39,9 @@ public interface Weapon {
 	void setAttackBonus(int attackBonus);
 
 	int getAttackBonus();
+
+	void setWeight(int weight);
+	
+	int getWeight();
 	
 }

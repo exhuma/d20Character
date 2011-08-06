@@ -18,4 +18,12 @@ public interface Skill {
 
 	void setMiscModifier(int miscModifier);
 
+	public abstract void setUntrained(boolean untrained);
+
+	public abstract boolean isUntrained();
+
+	public abstract void setPenaltyMultiplier(int penaltyMultiplier);
+
+	public abstract int getPenaltyMultiplier();
+
 }

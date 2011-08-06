@@ -10,9 +10,26 @@ public class ProtectiveItemImpl implements ProtectiveItem {
 	private int maxDexterity;
 	private int checkPenalty;
 	private int spellFailure;
-	private int maxSpeed;
 	private int weight;
 	private String specialProperties;
+
+	/**
+	 * Public constructor
+	 * @param name The visible name on the form
+	 * @param armorClassBonus The AC bonus
+	 * @param maxDexterity The max dex modifier
+	 * @param checkPenalty The check penalty (must be negative)
+	 * @param spellFailure Arcane spell failure
+	 */
+	public ProtectiveItemImpl(String name, int armorClassBonus,
+			int maxDexterity, int checkPenalty, int spellFailure) {
+		super();
+		this.name = name;
+		this.armorClassBonus = armorClassBonus;
+		this.maxDexterity = maxDexterity;
+		this.setCheckPenalty(checkPenalty);
+		this.spellFailure = spellFailure;
+	}
 
 	@Override
 	public String getName() {
@@ -61,6 +78,10 @@ public class ProtectiveItemImpl implements ProtectiveItem {
 
 	@Override
 	public void setCheckPenalty(int checkPenalty) {
+		if (checkPenalty > 0) {
+			throw new IllegalArgumentException(
+					"Armor check penalty must be negative!");
+		}
 		this.checkPenalty = checkPenalty;
 	}
 
@@ -72,16 +93,6 @@ public class ProtectiveItemImpl implements ProtectiveItem {
 	@Override
 	public void setSpellFailure(int spellFailure) {
 		this.spellFailure = spellFailure;
-	}
-
-	@Override
-	public int getMaxSpeed() {
-		return maxSpeed;
-	}
-
-	@Override
-	public void setMaxSpeed(int maxSpeed) {
-		this.maxSpeed = maxSpeed;
 	}
 
 	@Override

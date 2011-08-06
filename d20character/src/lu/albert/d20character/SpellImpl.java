@@ -7,6 +7,11 @@ public class SpellImpl implements Spell {
 	private String name;
 	private int level;
 
+	public SpellImpl(String name, int level) {
+		this.name = name;
+		this.level = level;
+	}
+
 	@Override
 	public String getName() {
 		return name;

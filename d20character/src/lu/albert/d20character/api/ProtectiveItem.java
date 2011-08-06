@@ -26,10 +26,6 @@ public interface ProtectiveItem {
 
 	void setSpellFailure(int spellFailure);
 
-	int getMaxSpeed();
-
-	void setMaxSpeed(int maxSpeed);
-
 	int getWeight();
 
 	void setWeight(int weight);

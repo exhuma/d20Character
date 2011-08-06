@@ -12,6 +12,17 @@ public class WeaponImpl implements Weapon {
 	private String notes;
 	private String ammunitionType;
 	private int ammunition;
+	private int weight;
+
+	public WeaponImpl(int attackBonus, String damage, String critical,
+			int range, DamageType type, int weight) {
+		this.attackBonus = attackBonus;
+		this.damage = damage;
+		this.critical = critical;
+		this.range = range;
+		this.type = type;
+		this.weight = weight;
+	}
 
 	@Override
 	public int getAttackBonus() {
@@ -91,6 +102,16 @@ public class WeaponImpl implements Weapon {
 	@Override
 	public void setAmmunition(int ammunition) {
 		this.ammunition = ammunition;
+	}
+
+	@Override
+	public int getWeight() {
+		return weight;
+	}
+
+	@Override
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 
 }

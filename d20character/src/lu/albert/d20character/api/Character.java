@@ -23,6 +23,10 @@ public interface Character {
 	static enum DamageType {
 		Lethal, Nonlethal
 	}
+	
+	static enum Load {
+		Light, Medium, Heavy
+	}
 
 	String getName();
 
@@ -282,8 +286,6 @@ public interface Character {
 
 	int getArcaneSpellFailure();
 
-	void setArcaneSpellFailure(int arcaneSpellFailure);
-
 	String getConditionalArcaneSpellFailure();
 
 	void setConditionalArcaneSpellFailure(String conditionalArcaneSpellFailure);
@@ -339,6 +341,40 @@ public interface Character {
 	 * @param ability The ability
 	 * @return
 	 */
-	int getModifier(Ability ability);
+	int getAbilityModifier(Ability ability);
+
+	/**
+	 * Returns the current skill modifier for this character
+	 * @param skill The skill
+	 * @return The modifier
+	 */
+	int getSkillModifier(Skill skill);
+
+	/**
+	 * Return the named ability score
+	 * @param ability The ability
+	 * @return The score
+	 */
+	int getAbilityScore(Ability ability);
+
+	/**
+	 * Sets the named ability score
+	 * @param ability The ability
+	 * @param value the new value
+	 */
+	void setAbilityScore(Ability ability, int value);
+
+	/**
+	 * How much can the character carry?
+	 * @param load The load type
+	 * @return A min/max value for loads
+	 */
+	List<Integer> getLoad(Load load);
+
+	/**
+	 * Returns the total weight carried
+	 * @return
+	 */
+	int getTotalWeight();
 	
 }
