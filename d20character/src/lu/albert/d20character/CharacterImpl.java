@@ -47,6 +47,7 @@ public class CharacterImpl implements Character {
 	private int tmpCharisma;
 
 	private int hitPoints;
+	private int tmpHitPoints;
 	private int damage;
 	private int nonlethalDamage;
 	private int speed;
@@ -899,7 +900,7 @@ public class CharacterImpl implements Character {
 
 	@Override
 	public int getCurrentHitpoints() {
-		return this.hitPoints - this.damage;
+		return this.hitPoints - this.damage + this.tmpHitPoints;
 	}
 
 	@Override
@@ -940,6 +941,24 @@ public class CharacterImpl implements Character {
 			if (this.nonlethalDamage < 0) {
 				this.nonlethalDamage = 0;
 			}
+			break;
+		}
+	}
+
+	@Override
+	public void removeAllDamage() {
+		this.damage = 0;
+	}
+
+	@Override
+	public void removeAllDamage(DamageType type) {
+		switch (type) {
+		default:
+		case Lethal:
+			this.removeAllDamage();
+			break;
+		case Nonlethal:
+			this.nonlethalDamage = 0;
 			break;
 		}
 	}
@@ -1065,27 +1084,27 @@ public class CharacterImpl implements Character {
 	public int getSkillModifier(Skill skill) {
 		int modifier = this.getAbilityModifier(skill.getKeyAbility())
 				+ skill.getRanks() + skill.getMiscModifier();
-		
+
 		int maxDex = 999;
-		
+
 		// apply armor based penalties
 		for (ProtectiveItem armor : this.getArmor()) {
 			modifier += armor.getCheckPenalty() * skill.getPenaltyMultiplier();
 			maxDex = Math.min(maxDex, armor.getMaxDexterity());
 		}
-		
-		if (skill.getKeyAbility() == Ability.Dexterity && modifier > maxDex){
+
+		if (skill.getKeyAbility() == Ability.Dexterity && modifier > maxDex) {
 			return maxDex;
 		}
-		
+
 		return modifier;
 	}
 
 	@Override
 	public List<Integer> getLoad(Load load) {
-		Integer[] loadInfo = LOADS.get(strength-1);
+		Integer[] loadInfo = LOADS.get(strength - 1);
 		List<Integer> out = new ArrayList<Integer>();
-		switch(load){
+		switch (load) {
 		case Light:
 			out.add(loadInfo[0]);
 			out.add(loadInfo[1]);
@@ -1115,6 +1134,74 @@ public class CharacterImpl implements Character {
 			total += weapon.getWeight();
 		}
 		return total;
+	}
+
+	@Override
+	public int getInitiative() {
+		return getAbilityModifier(Ability.Dexterity) + miscInitiative;
+	}
+
+	@Override
+	public int getFlatFootedAC() {
+		return this.getTotalArmorClass()
+				- getAbilityModifier(Ability.Dexterity);
+	}
+
+	@Override
+	public int getTouchAC() {
+		int totalAC = this.getTotalArmorClass();
+		for (ProtectiveItem armor : this.armor) {
+			if (!"deflection".equalsIgnoreCase(armor.getType())) {
+				totalAC -= armor.getArmorClassBonus();
+			}
+		}
+		return totalAC;
+	}
+
+	@Override
+	public int getTmpHitpoints() {
+		return tmpHitPoints;
+	}
+
+	@Override
+	public void setTmpHitpoints(int value) {
+		this.tmpHitPoints = value;
+	}
+
+	@Override
+	public void addTmpHp(int value) {
+		this.tmpHitPoints += value;
+	}
+
+	@Override
+	public void removeTmpHp(int value) {
+		this.tmpHitPoints -= value;
+		if (tmpHitPoints < 0) {
+			this.tmpHitPoints = 0;
+		}
+	}
+
+	@Override
+	public void removeAllTmpHp() {
+		this.tmpHitPoints = 0;
+	}
+
+	@Override
+	public int getFortitudeSave() {
+		return baseFortitudeSave + getAbilityModifier(Ability.Constitution)
+				+ magicFortitudeSave + miscFortitudeSave + tmpFortitudeSave;
+	}
+
+	@Override
+	public int getReflexSave() {
+		return baseReflexSave + getAbilityModifier(Ability.Dexterity)
+				+ magicReflexSave + miscReflexSave + tmpReflexSave;
+	}
+
+	@Override
+	public int getWillSave() {
+		return baseWillSave + getAbilityModifier(Ability.Wisdom)
+				+ magicWillSave + miscWillSave + tmpWillSave;
 	}
 
 }

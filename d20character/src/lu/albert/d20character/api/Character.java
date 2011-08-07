@@ -377,4 +377,66 @@ public interface Character {
 	 */
 	int getTotalWeight();
 	
+	/**
+	 * The initiative
+	 * @return
+	 */
+	int getInitiative();
+	
+	/**
+	 * Flat footed armor class (AC without bonus granted by dexterity)
+	 * @return
+	 */
+	int getFlatFootedAC();
+	
+	/**
+	 * Touch armor class (AC without bonus granted by armor) 
+	 * @return
+	 */
+	int getTouchAC();
+	
+	/**
+	 * The temporary hitpoints
+	 * @return
+	 */
+	int getTmpHitpoints();
+	
+	/**
+	 * Sets the temp. hitpoints
+	 * @param value
+	 */
+	void setTmpHitpoints(int value);
+	
+	/**
+	 * Remove (heal) all lethal damage from the character
+	 */
+	void removeAllDamage();
+	
+	/**
+	 * Remove (heal) all lethal or non-lethal damage from the character
+	 * @param type the damage type
+	 */
+	void removeAllDamage(DamageType type);
+	
+	/**
+	 * Adds temporary hitpoints
+	 * @param value
+	 */
+	void addTmpHp(int value);
+	
+	/**
+	 * Removes temporary hitpoints
+	 * @param value
+	 */
+	void removeTmpHp(int value);
+	
+	/**
+	 * Resets temporary hitpoints to 0
+	 */
+	void removeAllTmpHp();
+
+	int getFortitudeSave();
+	int getReflexSave();
+	int getWillSave();
+	
 }
