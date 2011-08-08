@@ -439,4 +439,11 @@ public interface Character {
 	int getReflexSave();
 	int getWillSave();
 	
+	/**
+	 * Returns the attack bonus while wielding a specific weapon
+	 * @param weapon The weapon
+	 * @return the Attack bonus
+	 */
+	int getAttackBonus(Weapon weapon);
+	
 }

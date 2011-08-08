@@ -4,7 +4,7 @@ import lu.albert.d20character.api.Weapon;
 
 public class WeaponImpl implements Weapon {
 
-	private int attackBonus;
+	private String name;
 	private String damage;
 	private String critical;
 	private int range;
@@ -14,24 +14,14 @@ public class WeaponImpl implements Weapon {
 	private int ammunition;
 	private int weight;
 
-	public WeaponImpl(int attackBonus, String damage, String critical,
-			int range, DamageType type, int weight) {
-		this.attackBonus = attackBonus;
+	public WeaponImpl(String name, String damage,
+			String critical, int range, DamageType type, int weight) {
+		this.name = name;
 		this.damage = damage;
 		this.critical = critical;
 		this.range = range;
 		this.type = type;
 		this.weight = weight;
-	}
-
-	@Override
-	public int getAttackBonus() {
-		return attackBonus;
-	}
-
-	@Override
-	public void setAttackBonus(int attackBonus) {
-		this.attackBonus = attackBonus;
 	}
 
 	@Override
@@ -112,6 +102,16 @@ public class WeaponImpl implements Weapon {
 	@Override
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

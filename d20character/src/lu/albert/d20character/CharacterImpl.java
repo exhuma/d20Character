@@ -1204,4 +1204,10 @@ public class CharacterImpl implements Character {
 				+ magicWillSave + miscWillSave + tmpWillSave;
 	}
 
+	@Override
+	public int getAttackBonus(Weapon weapon) {
+		// TODO add modifiers based on proficiency, melee/ranged, one/two-handed...
+		return this.baseAttackBonus + this.getAbilityModifier(Ability.Strength);
+	}
+
 }

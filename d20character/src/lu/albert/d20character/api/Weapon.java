@@ -36,12 +36,12 @@ public interface Weapon {
 
 	String getDamage();
 
-	void setAttackBonus(int attackBonus);
-
-	int getAttackBonus();
-
 	void setWeight(int weight);
 	
 	int getWeight();
+
+	public abstract void setName(String name);
+
+	public abstract String getName();
 	
 }
