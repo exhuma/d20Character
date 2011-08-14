@@ -365,6 +365,13 @@ public interface Character {
 	void setAbilityScore(Ability ability, int value);
 
 	/**
+	 * Sets the named temporary ability score modifier
+	 * @param ability The ability
+	 * @param value the new value
+	 */
+	void setTmpAbilityScore(Ability ability, int value);
+
+	/**
 	 * How much can the character carry?
 	 * @param load The load type
 	 * @return A min/max value for loads
@@ -445,5 +452,12 @@ public interface Character {
 	 * @return the Attack bonus
 	 */
 	int getAttackBonus(Weapon weapon);
+	
+	/**
+	 * Return a modifier for an arbitrary value
+	 * @param score The ability score
+	 * @return the modifier
+	 */
+	int getAbilityModifier(int score);
 	
 }

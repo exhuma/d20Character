@@ -142,7 +142,8 @@ public class CharacterImpl implements Character {
 	 *            The input value
 	 * @return The modifier
 	 */
-	private int modifier(int value) {
+	@Override
+	public int getAbilityModifier(int value) {
 		return (int) Math.floor((value - 10) / 2f);
 	}
 
@@ -1013,20 +1014,48 @@ public class CharacterImpl implements Character {
 	}
 
 	@Override
+	public void setTmpAbilityScore(Ability ability, int value) {
+		switch (ability) {
+		case Charisma:
+			this.tmpCharisma = value;
+			;
+			break;
+		case Constitution:
+			this.tmpConstitution = value;
+			break;
+		case Dexterity:
+			this.tmpDexterity = value;
+			break;
+		case Intelligence:
+			this.tmpIntelligence = value;
+			break;
+		case Strength:
+			this.tmpStrength = value;
+			break;
+		case Wisdom:
+			this.tmpWisdom = value;
+			break;
+		default:
+			throw new IllegalArgumentException(
+					"Invalid ability passed to the getModifier method!");
+		}
+	}
+
+	@Override
 	public int getAbilityModifier(Ability ability) {
 		switch (ability) {
 		case Charisma:
-			return this.modifier(this.charisma);
+			return this.getAbilityModifier(this.charisma);
 		case Constitution:
-			return this.modifier(this.constitution);
+			return this.getAbilityModifier(this.constitution);
 		case Dexterity:
-			return this.modifier(this.dexterity);
+			return this.getAbilityModifier(this.dexterity);
 		case Intelligence:
-			return this.modifier(this.intelligence);
+			return this.getAbilityModifier(this.intelligence);
 		case Strength:
-			return this.modifier(this.strength);
+			return this.getAbilityModifier(this.strength);
 		case Wisdom:
-			return this.modifier(this.wisdom);
+			return this.getAbilityModifier(this.wisdom);
 		default:
 			throw new IllegalArgumentException(
 					"Invalid ability passed to the getModifier method!");
