@@ -34,4 +34,8 @@ public interface ProtectiveItem {
 
 	void setSpecialProperties(String specialProperties);
 
+	void setNotes(String text);
+	
+	String getNotes();
+
 }

@@ -12,6 +12,7 @@ public class ProtectiveItemImpl implements ProtectiveItem {
 	private int spellFailure;
 	private int weight;
 	private String specialProperties;
+	private String notes;
 
 	/**
 	 * Public constructor
@@ -113,6 +114,16 @@ public class ProtectiveItemImpl implements ProtectiveItem {
 	@Override
 	public void setSpecialProperties(String specialProperties) {
 		this.specialProperties = specialProperties;
+	}
+
+	@Override
+	public void setNotes(String text) {
+		this.notes = text;
+	}
+
+	@Override
+	public String getNotes() {
+		return this.notes;
 	}
 
 }

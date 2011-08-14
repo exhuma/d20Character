@@ -17,13 +17,15 @@ public class WeaponImpl implements Weapon {
 	private Type type;
 
 	public WeaponImpl(String name, String damage,
-			String critical, int range, DamageType type, int weight) {
+			String critical, int range, DamageType damageType, int weight, WeaponClass clazz, Type type) {
 		this.name = name;
 		this.damage = damage;
 		this.critical = critical;
 		this.range = range;
-		this.damageType = type;
+		this.damageType = damageType;
 		this.weight = weight;
+		this.weaponClass = clazz;
+		this.type = type;
 	}
 
 	@Override

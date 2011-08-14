@@ -1206,8 +1206,20 @@ public class CharacterImpl implements Character {
 
 	@Override
 	public int getAttackBonus(Weapon weapon) {
-		// TODO add modifiers based on proficiency, melee/ranged, one/two-handed...
-		return this.baseAttackBonus + this.getAbilityModifier(Ability.Strength);
+		int abilityBonus = 0;
+		switch(weapon.getType()){
+		default:
+		case Melee:
+			abilityBonus = this.getAbilityModifier(Ability.Strength);
+			break;
+		case Ranged:
+			abilityBonus = this.getAbilityModifier(Ability.Dexterity);
+			break;
+		}
+		
+		// TODO weapon stat modifiers
+		
+		return this.baseAttackBonus + abilityBonus;
 	}
 
 }
