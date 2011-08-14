@@ -3,9 +3,15 @@ package lu.albert.d20character.api;
 public interface Weapon {
 
 	static enum DamageType {
-		Slashing,
-		Piercing,
-		Bludgeoning
+		Slashing, Piercing, Bludgeoning
+	}
+
+	static enum WeaponClass {
+		Simple, Martial, Exotic
+	}
+
+	static enum Type {
+		Melee, Ranged
 	}
 
 	void setAmmunition(int ammunition);
@@ -20,9 +26,9 @@ public interface Weapon {
 
 	String getNotes();
 
-	void setType(DamageType type);
+	void setDamageType(DamageType type);
 
-	DamageType getType();
+	DamageType getDamageType();
 
 	void setRange(int range);
 
@@ -37,11 +43,19 @@ public interface Weapon {
 	String getDamage();
 
 	void setWeight(int weight);
-	
+
 	int getWeight();
 
-	public abstract void setName(String name);
+	void setName(String name);
 
-	public abstract String getName();
+	String getName();
+
+	WeaponClass getWeaponClass();
+
+	void setWeaponClass(WeaponClass clazz);
+
+	Type getType();
 	
+	void setType(Type type);
+
 }

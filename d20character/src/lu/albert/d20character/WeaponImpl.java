@@ -8,11 +8,13 @@ public class WeaponImpl implements Weapon {
 	private String damage;
 	private String critical;
 	private int range;
-	private DamageType type;
+	private DamageType damageType;
 	private String notes;
 	private String ammunitionType;
 	private int ammunition;
 	private int weight;
+	private WeaponClass weaponClass;
+	private Type type;
 
 	public WeaponImpl(String name, String damage,
 			String critical, int range, DamageType type, int weight) {
@@ -20,7 +22,7 @@ public class WeaponImpl implements Weapon {
 		this.damage = damage;
 		this.critical = critical;
 		this.range = range;
-		this.type = type;
+		this.damageType = type;
 		this.weight = weight;
 	}
 
@@ -55,13 +57,13 @@ public class WeaponImpl implements Weapon {
 	}
 
 	@Override
-	public DamageType getType() {
-		return type;
+	public DamageType getDamageType() {
+		return damageType;
 	}
 
 	@Override
-	public void setType(DamageType type) {
-		this.type = type;
+	public void setDamageType(DamageType type) {
+		this.damageType = type;
 	}
 
 	@Override
@@ -112,6 +114,26 @@ public class WeaponImpl implements Weapon {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public WeaponClass getWeaponClass() {
+		return this.weaponClass;
+	}
+
+	@Override
+	public void setWeaponClass(WeaponClass clazz) {
+		this.weaponClass = clazz;
+	}
+
+	@Override
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	@Override
+	public Type getType() {
+		return this.type;
 	}
 
 }
