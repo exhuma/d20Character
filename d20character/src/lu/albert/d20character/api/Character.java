@@ -19,11 +19,11 @@ public interface Character {
 	static enum Alignment {
 		LawfulEvil, LawfulNeutral, LawfulGood, NeutreEvil, TrueNeutral, NeutralGood, ChaoticEvil, ChaoticNeutral, ChaoticGood
 	}
-	
+
 	static enum DamageType {
 		Lethal, Nonlethal
 	}
-	
+
 	static enum Load {
 		Light, Medium, Heavy
 	}
@@ -297,167 +297,227 @@ public interface Character {
 	void setSpellLevels(List<SpellLevel> spellLevels);
 
 	List<SpellLevel> getSpellLevels();
-	
+
 	/**
-	 * Calculate the current hitpoints including temporary HP, damage, ... 
+	 * Calculate the current hitpoints including temporary HP, damage, ...
+	 * 
 	 * @return the current HP value
 	 */
 	int getCurrentHitpoints();
-	
+
 	/**
 	 * Add lethal damage to the character
-	 * @param damage Damage point to add
+	 * 
+	 * @param damage
+	 *            Damage point to add
 	 */
 	void addDamage(int damage);
-	
+
 	/**
 	 * Add either lethal or non-lethal damage to the character
-	 * @param damage The value to add
-	 * @param type the damage type
+	 * 
+	 * @param damage
+	 *            The value to add
+	 * @param type
+	 *            the damage type
 	 */
 	void addDamage(int damage, DamageType type);
-	
+
 	/**
 	 * Remove (heal) lethal damage from the character
-	 * @param damage the value to remove
+	 * 
+	 * @param damage
+	 *            the value to remove
 	 */
 	void removeDamage(int damage);
-	
+
 	/**
 	 * Remove (heal) lethal or non-lethal damage from the character
-	 * @param damage the value to remove
-	 * @param type the damage type
+	 * 
+	 * @param damage
+	 *            the value to remove
+	 * @param type
+	 *            the damage type
 	 */
 	void removeDamage(int damage, DamageType type);
-	
+
 	/**
 	 * Returns the current total armor class
+	 * 
 	 * @return
 	 */
 	int getTotalArmorClass();
-	
+
 	/**
 	 * Returns the modifier for the given ability
-	 * @param ability The ability
+	 * 
+	 * @param ability
+	 *            The ability
 	 * @return
 	 */
 	int getAbilityModifier(Ability ability);
 
 	/**
+	 * Returns the modifier for the given ability (including temporary score)
+	 * 
+	 * @param ability
+	 *            The ability
+	 * @return
+	 */
+	int getTmpAbilityModifier(Ability ability);
+
+	/**
 	 * Returns the current skill modifier for this character
-	 * @param skill The skill
+	 * 
+	 * @param skill
+	 *            The skill
 	 * @return The modifier
 	 */
 	int getSkillModifier(Skill skill);
 
 	/**
 	 * Return the named ability score
-	 * @param ability The ability
+	 * 
+	 * @param ability
+	 *            The ability
 	 * @return The score
 	 */
 	int getAbilityScore(Ability ability);
 
 	/**
+	 * Return the named temporary ability score
+	 * 
+	 * @param ability
+	 *            The ability
+	 * @return The score
+	 */
+	int getTmpAbilityScore(Ability ability);
+
+	/**
 	 * Sets the named ability score
-	 * @param ability The ability
-	 * @param value the new value
+	 * 
+	 * @param ability
+	 *            The ability
+	 * @param value
+	 *            the new value
 	 */
 	void setAbilityScore(Ability ability, int value);
 
 	/**
 	 * Sets the named temporary ability score modifier
-	 * @param ability The ability
-	 * @param value the new value
+	 * 
+	 * @param ability
+	 *            The ability
+	 * @param value
+	 *            the new value
 	 */
 	void setTmpAbilityScore(Ability ability, int value);
 
 	/**
 	 * How much can the character carry?
-	 * @param load The load type
+	 * 
+	 * @param load
+	 *            The load type
 	 * @return A min/max value for loads
 	 */
 	List<Integer> getLoad(Load load);
 
 	/**
 	 * Returns the total weight carried
+	 * 
 	 * @return
 	 */
 	int getTotalWeight();
-	
+
 	/**
 	 * The initiative
+	 * 
 	 * @return
 	 */
 	int getInitiative();
-	
+
 	/**
 	 * Flat footed armor class (AC without bonus granted by dexterity)
+	 * 
 	 * @return
 	 */
 	int getFlatFootedAC();
-	
+
 	/**
-	 * Touch armor class (AC without bonus granted by armor) 
+	 * Touch armor class (AC without bonus granted by armor)
+	 * 
 	 * @return
 	 */
 	int getTouchAC();
-	
+
 	/**
 	 * The temporary hitpoints
+	 * 
 	 * @return
 	 */
 	int getTmpHitpoints();
-	
+
 	/**
 	 * Sets the temp. hitpoints
+	 * 
 	 * @param value
 	 */
 	void setTmpHitpoints(int value);
-	
+
 	/**
 	 * Remove (heal) all lethal damage from the character
 	 */
 	void removeAllDamage();
-	
+
 	/**
 	 * Remove (heal) all lethal or non-lethal damage from the character
-	 * @param type the damage type
+	 * 
+	 * @param type
+	 *            the damage type
 	 */
 	void removeAllDamage(DamageType type);
-	
+
 	/**
 	 * Adds temporary hitpoints
+	 * 
 	 * @param value
 	 */
 	void addTmpHp(int value);
-	
+
 	/**
 	 * Removes temporary hitpoints
+	 * 
 	 * @param value
 	 */
 	void removeTmpHp(int value);
-	
+
 	/**
 	 * Resets temporary hitpoints to 0
 	 */
 	void removeAllTmpHp();
 
 	int getFortitudeSave();
+
 	int getReflexSave();
+
 	int getWillSave();
-	
+
 	/**
 	 * Returns the attack bonus while wielding a specific weapon
-	 * @param weapon The weapon
+	 * 
+	 * @param weapon
+	 *            The weapon
 	 * @return the Attack bonus
 	 */
 	int getAttackBonus(Weapon weapon);
-	
+
 	/**
 	 * Return a modifier for an arbitrary value
-	 * @param score The ability score
+	 * 
+	 * @param score
+	 *            The ability score
 	 * @return the modifier
 	 */
 	int getAbilityModifier(int score);
-	
+
 }
